@@ -5,20 +5,20 @@ const progress = document.getElementById("progress");
 const title = document.querySelector(".title");
 const artist = document.querySelector(".artist");
 const albumArt = document.querySelector(".ar");
+const video = document.getElementById("background-video");
+const loader = document.getElementById("loader");
+const container = document.querySelector(".container");
 
-const video = document.getElementById('background-video');
-const sources = ['video1.mp4', 'video2.mp4', 'video3.mp4', 'video4.mp4'];
-let current = 0;
+const videoSources = ['video1.mp4', 'video2.mp4', 'video3.mp4', 'video4.mp4'];
+let videoIndex = 0;
 
 video.addEventListener('ended', () => {
-  current = (current + 1) % sources.length;
-  video.src = sources[current];
+  videoIndex = (videoIndex + 1) % videoSources.length;
+  video.src = videoSources[videoIndex];
   video.load();
   video.play();
 });
 
-
-// Define your playlist
 const playlist = [
   {
     title: "Line Without a Hook",
@@ -47,8 +47,24 @@ const playlist = [
 ];
 
 let currentSong = 0;
+let audioBuffer = [];
 
-// Load a song
+// Preload audio files
+let loadedCount = 0;
+playlist.forEach((track, i) => {
+  const audio = new Audio();
+  audio.src = track.src;
+  audio.oncanplaythrough = () => {
+    loadedCount++;
+    if (loadedCount === playlist.length) {
+      loader.style.display = "none";
+      container.style.display = "flex";
+      loadSong(currentSong);
+    }
+  };
+  audioBuffer.push(audio);
+});
+
 function loadSong(index) {
   const song = playlist[index];
   player.src = song.src;
@@ -60,7 +76,6 @@ function loadSong(index) {
   fapaused.style.display = "none";
 }
 
-// Play/Pause toggle
 function playpause() {
   if (player.paused) {
     player.play().then(() => {
@@ -74,7 +89,6 @@ function playpause() {
   }
 }
 
-// Next song
 function nextSong() {
   currentSong = (currentSong + 1) % playlist.length;
   loadSong(currentSong);
@@ -83,7 +97,6 @@ function nextSong() {
   fapaused.style.display = "flex";
 }
 
-// Previous song
 function prevSong() {
   currentSong = (currentSong - 1 + playlist.length) % playlist.length;
   loadSong(currentSong);
@@ -92,7 +105,6 @@ function prevSong() {
   fapaused.style.display = "flex";
 }
 
-// Update progress
 player.addEventListener('loadedmetadata', () => {
   progress.max = player.duration;
 });
@@ -105,12 +117,7 @@ progress.addEventListener('input', () => {
   player.currentTime = progress.value;
 });
 
-// Autoplay next song
 player.addEventListener('ended', nextSong);
 
-// Initial load
-loadSong(currentSong);
-
-// Assign click events to buttons
 document.querySelector('.fa-forward').onclick = nextSong;
 document.querySelector('.fa-backward').onclick = prevSong;

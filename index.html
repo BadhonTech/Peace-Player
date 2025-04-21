@@ -5,61 +5,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  
-  <!-- Twitter Card meta -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:site" content="@badhonbiswas_"> <!-- Optional -->
-<meta name="twitter:title" content="Peace Player">
-<meta name="twitter:description" content="Peace player is a music player which is a best web player.">
-<meta name="twitter:image" content="linkthumb.jpg">
-<link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@badhonbiswas_">
+  <meta name="twitter:title" content="Peace Player">
+  <meta name="twitter:description" content="Peace player is a music player which is a best web player.">
+  <meta name="twitter:image" content="linkthumb.jpg">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
 
-  
   <title>Peace Player</title>
   <link rel="stylesheet" href="style.css" type="text/css" media="all" />
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-                                                                                                                          crossorigin="anonymous"
-                                                                                                                          referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-  <video 
-    id="background-video"
-    class="background-video"
-    autoplay 
-    muted 
-    playsinline 
-    preload="none">
+  <div id="loader">
+    <img src="favicon.png" alt="Loading...">
+  </div>
+
+  <video id="background-video" class="background-video" autoplay muted playsinline preload="none">
     <source src="video1.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
-<div class="container">
+  <div class="container" style="display:none;">
     <img class="ar" src="songs/Line Without a Hook - Ricky Montgomery.jpg" alt="album art" />
     <div class="md">
-    <div class="title-wrapper">
-    <div class="title">Line Without a Hookgscvv</div>
-    </div>
-    <div class="artist">
-        ricky
+      <div class="title-wrapper">
+        <div class="title">Loading...</div>
       </div>
+      <div class="artist">...</div>
       <audio id="player">
-        <source src="songs/Line Without a Hook - Ricky Montgomery.mp3" type="audio/mp3" />
+        <source src="" type="audio/mp3" />
       </audio>
-      
       <input type="range" id="progress" min="0" value="0" step="0.1">
       <div class="icons">
-        <div class="icons">
-          <i onclick="" class="fa-solid fa-backward"></i>
-          <i onclick="playpause()" id="faplay" class="fa-solid fa-play"></i>
-          <i onclick="playpause()" id="fapaused" class="fa-solid fa-pause" style="display: none;"></i>
-          <i onclick="" class="fa-solid fa-forward"></i>
-        </div>
+        <i class="fa-solid fa-backward"></i>
+        <i onclick="playpause()" id="faplay" class="fa-solid fa-play"></i>
+        <i onclick="playpause()" id="fapaused" class="fa-solid fa-pause" style="display: none;"></i>
+        <i class="fa-solid fa-forward"></i>
       </div>
     </div>
   </div>
-  <script src="script.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="script.js"></script>
 </body>
 
 </html>
