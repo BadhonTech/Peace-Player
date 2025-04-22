@@ -11,7 +11,7 @@ font-family: "Jua", sans-serif;  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("songs/blue - yung kai.jpg") no-repeat;
+  background: url("currentWallpaper.webp") no-repeat;
   background-size: cover;
 }
 .background-video {
