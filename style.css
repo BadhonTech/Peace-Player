@@ -1,17 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 body {
-font-family: "Jua", sans-serif;  color: white;
+  font-family: "Jua", sans-serif;
+  color: white;
   width: 100%;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url("currentWallpaper.webp") no-repeat;
+  background: url("currentWallpaper.webp") no-repeat center center fixed;
   background-size: cover;
 }
 .background-video {
@@ -34,6 +34,10 @@ font-family: "Jua", sans-serif;  color: white;
   border-radius: 26px;
   padding: 0 10px;
   overflow-x: hidden;
+  transition: opacity 0.3s ease;
+}
+.hidden {
+  display: none;
 }
 .ar {
   height: 80%;
@@ -66,11 +70,9 @@ i {
   font-size: 20px;
   padding: 0 13px;
 }
-i:nth-child(2), i:nth-child(3) {
-  font-size: 24px;
-}
+i:nth-child(2),
 i:nth-child(3) {
-  display: none;
+  font-size: 24px;
 }
 .icons {
   display: flex;
@@ -94,7 +96,8 @@ i:nth-child(3) {
   animation: pulse 1.5s infinite;
 }
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {

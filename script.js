@@ -9,10 +9,10 @@ const video = document.getElementById("background-video");
 const loader = document.getElementById("loader");
 const container = document.querySelector(".container");
 
-const videoSources = ['video1.mp4', 'video2.mp4', 'video3.mp4', 'video4.mp4'];
+const videoSources = ["video1.mp4", "video2.mp4", "video3.mp4", "video4.mp4"];
 let videoIndex = 0;
 
-video.addEventListener('ended', () => {
+video.addEventListener("ended", () => {
   videoIndex = (videoIndex + 1) % videoSources.length;
   video.src = videoSources[videoIndex];
   video.load();
@@ -24,45 +24,34 @@ const playlist = [
     title: "Line Without a Hook",
     artist: "Ricky Montgomery",
     src: "songs/Line Without a Hook - Ricky Montgomery.mp3",
-    cover: "songs/Line Without a Hook - Ricky Montgomery.jpg"
+    cover: "songs/Line Without a Hook - Ricky Montgomery.jpg",
   },
   {
     title: "blue",
     artist: "yung kai",
     src: "songs/blue - yung kai.mp3",
-    cover: "songs/blue - yung kai.jpg"
+    cover: "songs/blue - yung kai.jpg",
   },
   {
     title: "Your Eyes",
     artist: "Barney,Taqiya",
     src: "songs/Your Eyes - Barney Sku_ Taqiya Zaman.mp3",
-    cover: "songs/Your Eyes - Barney Sku_ Taqiya Zaman.jpg"
+    cover: "songs/Your Eyes - Barney Sku_ Taqiya Zaman.jpg",
   },
   {
     title: "I Wanna Be Yours",
     artist: "Arctic Monkeys",
     src: "songs/I Wanna Be Yours - Arctic Monkeys.mp3",
-    cover: "songs/I Wanna Be Yours - Arctic Monkeys.jpg"
-  }
+    cover: "songs/I Wanna Be Yours - Arctic Monkeys.jpg",
+  },
 ];
 
 let currentSong = 0;
-let audioBuffer = [];
 
-// Preload audio files
-let loadedCount = 0;
-playlist.forEach((track, i) => {
-  const audio = new Audio();
-  audio.src = track.src;
-  audio.oncanplaythrough = () => {
-    loadedCount++;
-    if (loadedCount === playlist.length) {
-      loader.style.display = "none";
-      container.style.display = "flex";
-      loadSong(currentSong);
-    }
-  };
-  audioBuffer.push(audio);
+window.addEventListener("load", () => {
+  loadSong(currentSong);
+  loader.style.display = "none";
+  container.classList.remove("hidden");
 });
 
 function loadSong(index) {
@@ -105,19 +94,19 @@ function prevSong() {
   fapaused.style.display = "flex";
 }
 
-player.addEventListener('loadedmetadata', () => {
+player.addEventListener("loadedmetadata", () => {
   progress.max = player.duration;
 });
 
-player.addEventListener('timeupdate', () => {
+player.addEventListener("timeupdate", () => {
   progress.value = player.currentTime;
 });
 
-progress.addEventListener('input', () => {
+progress.addEventListener("input", () => {
   player.currentTime = progress.value;
 });
 
-player.addEventListener('ended', nextSong);
+player.addEventListener("ended", nextSong);
 
-document.querySelector('.fa-forward').onclick = nextSong;
-document.querySelector('.fa-backward').onclick = prevSong;
+document.querySelector(".fa-forward").onclick = nextSong;
+document.querySelector(".fa-backward").onclick = prevSong;
