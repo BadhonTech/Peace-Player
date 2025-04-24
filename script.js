@@ -52,6 +52,7 @@ window.addEventListener("load", () => {
   loadSong(currentSong);
   loader.style.display = "none";
   container.classList.remove("hidden");
+  makeDraggable(container);
 });
 
 function loadSong(index) {
@@ -110,3 +111,62 @@ player.addEventListener("ended", nextSong);
 
 document.querySelector(".fa-forward").onclick = nextSong;
 document.querySelector(".fa-backward").onclick = prevSong;
+
+// Make container draggable
+function makeDraggable(el) {
+  let isDragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  const startDrag = (clientX, clientY) => {
+    const rect = el.getBoundingClientRect();
+    offsetX = clientX - rect.left;
+    offsetY = clientY - rect.top;
+    isDragging = true;
+  };
+
+  const doDrag = (clientX, clientY) => {
+    if (!isDragging) return;
+
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const elWidth = el.offsetWidth;
+    const elHeight = el.offsetHeight;
+
+    let newLeft = clientX - offsetX;
+    let newTop = clientY - offsetY;
+
+    newLeft = Math.max(0, Math.min(newLeft, screenWidth - elWidth));
+    newTop = Math.max(0, Math.min(newTop, screenHeight - elHeight));
+
+    el.style.left = newLeft + "px";
+    el.style.top = newTop + "px";
+  };
+
+  el.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    startDrag(e.clientX, e.clientY);
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    doDrag(e.clientX, e.clientY);
+  });
+
+  document.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
+
+  el.addEventListener("touchstart", (e) => {
+    const touch = e.touches[0];
+    startDrag(touch.clientX, touch.clientY);
+  });
+
+  document.addEventListener("touchmove", (e) => {
+    const touch = e.touches[0];
+    doDrag(touch.clientX, touch.clientY);
+  }, { passive: false });
+
+  document.addEventListener("touchend", () => {
+    isDragging = false;
+  });
+}
