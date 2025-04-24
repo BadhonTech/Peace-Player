@@ -8,9 +8,6 @@ body {
   color: white;
   width: 100%;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background: url("currentWallpaper.webp") no-repeat center center fixed;
   background-size: cover;
 }
@@ -25,6 +22,9 @@ body {
   pointer-events: none;
 }
 .container {
+  position: absolute;
+  top: 100px;
+  left: 20px;
   display: flex;
   align-items: center;
   width: 370px;
@@ -35,6 +35,7 @@ body {
   padding: 0 10px;
   overflow-x: hidden;
   transition: opacity 0.3s ease;
+  z-index: 10;
 }
 .hidden {
   display: none;
@@ -96,11 +97,6 @@ i:nth-child(3) {
   animation: pulse 1.5s infinite;
 }
 @keyframes pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
 }
